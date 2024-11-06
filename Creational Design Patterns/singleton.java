@@ -68,7 +68,8 @@ public class SingleTonClassDoubleCheckVolatile {
 	}
 }
 
-// using static block
+// using static block - also called intialization blocks, this block runs 
+// when the class is first loaded into memory and it executes only once.
 public class Singleton {
     private static Singleton instance;
 
@@ -86,6 +87,24 @@ public class Singleton {
         return instance;
     }
 }
+
+// This implementation uses a static inner helper class to hold the singleton instance. 
+// The inner class is not loaded into memory until it's referenced for the first time 
+// in the getInstance() method.
+// It is thread-safe without requiring explicit synchronization.
+//The final keyword ensures that the INSTANCE cannot be reassigned.
+public class SingleTonBillPugh {
+	private SingleTonBillPugh();
+
+	private static Class SingletonHelper() {
+		private static final SingleTonBillPugh INSTANCE = new SingleTonBillPugh();
+	}
+
+	public static SingleTonBillPugh getInstance() {
+		return SingletonHelper.INSTANCE;
+	}
+}
+
 
 
 public static void main(Strings[] args) {
